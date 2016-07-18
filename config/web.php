@@ -16,7 +16,8 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
+            'loginUrl' => '/user/login',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -38,14 +39,14 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+        
     ],
     'params' => $params,
 ];
@@ -55,13 +56,18 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
+    	'allowedIPs' => ['127.0.0.1', '192.168.93.*'],
+    	'panels' => [
+    			'views' => ['class' => 'app\panels\ViewsPanel'],
+    			],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-    	'allowedIPs' => ['127.0.0.1', '192.168.93.*', ]
+    	'allowedIPs' => ['127.0.0.1', '192.168.93.*']
     ];
 }
 
 return $config;
+
